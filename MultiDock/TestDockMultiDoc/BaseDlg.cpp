@@ -10,7 +10,7 @@
 // All rights reserved.
 
 #include "stdafx.h"
-#include "BasePane.h"
+#include "BaseDlg.h"
 
 
 #ifdef _DEBUG

@@ -16,6 +16,9 @@
     <Filter Include="Source Files\config">
       <UniqueIdentifier>{0b1d4a04-f628-479a-9336-5b391d286a92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\User Interface">
+      <UniqueIdentifier>{28e203c9-bcac-4e1a-a3af-db3c2b79d227}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -105,9 +108,6 @@
     <ClInclude Include="ChildFrm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ViewTree.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainFrm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -129,26 +129,11 @@
     <ClInclude Include="OutputWnd.h">
       <Filter>Unused</Filter>
     </ClInclude>
-    <ClInclude Include="BasePane.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgTest2.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgTest1.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="XmlConfig.h">
       <Filter>Source Files\config</Filter>
     </ClInclude>
     <ClInclude Include="RWLock.h">
       <Filter>Source Files\config</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgTest4.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgTest3.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="MultiDock.h">
       <Filter>Source Files</Filter>
@@ -160,13 +145,31 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="FileView.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\User Interface</Filter>
     </ClInclude>
-    <ClInclude Include="DlgConfig.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="DlgTest1.h">
+      <Filter>Source Files\User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTest2.h">
+      <Filter>Source Files\User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTest3.h">
+      <Filter>Source Files\User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTest4.h">
+      <Filter>Source Files\User Interface</Filter>
     </ClInclude>
     <ClInclude Include="DlgPaneConfig.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgConfig.h">
+      <Filter>Source Files\User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewTree.h">
+      <Filter>Source Files\User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDlg.h">
+      <Filter>Source Files\User Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +182,6 @@
     <ClCompile Include="ChildFrm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ViewTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ClassView.cpp">
       <Filter>Unused</Filter>
     </ClCompile>
@@ -191,26 +191,11 @@
     <ClCompile Include="OutputWnd.cpp">
       <Filter>Unused</Filter>
     </ClCompile>
-    <ClCompile Include="BasePane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DlgTest1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DlgTest2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XmlConfig.cpp">
       <Filter>Source Files\config</Filter>
     </ClCompile>
     <ClCompile Include="RWLock.cpp">
       <Filter>Source Files\config</Filter>
-    </ClCompile>
-    <ClCompile Include="DlgTest3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DlgTest4.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MultiDock.cpp">
       <Filter>Source Files</Filter>
@@ -221,14 +206,32 @@
     <ClCompile Include="MultiDockView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileView.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="DlgTest1.cpp">
+      <Filter>Source Files\User Interface</Filter>
     </ClCompile>
-    <ClCompile Include="DlgPaneConfig.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="DlgTest2.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTest3.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTest4.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="FileView.cpp">
+      <Filter>Source Files\User Interface</Filter>
     </ClCompile>
     <ClCompile Include="DlgConfig.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPaneConfig.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDlg.cpp">
+      <Filter>Source Files\User Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

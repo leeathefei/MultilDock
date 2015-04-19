@@ -1,7 +1,7 @@
 
 #pragma once
 #include "FileView.h"
-#include "BasePane.h"
+#include "BaseDlg.h"
 #include <vector>
 #include <string>
 

@@ -125,7 +125,7 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasePane.h" />
+    <ClInclude Include="BaseDlg.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ClassView.h" />
     <ClInclude Include="DlgConfig.h" />
@@ -149,7 +149,7 @@
     <ClInclude Include="XmlConfig.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BasePane.cpp" />
+    <ClCompile Include="BaseDlg.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ClassView.cpp" />
     <ClCompile Include="DlgConfig.cpp" />
