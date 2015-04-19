@@ -133,7 +133,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CMFCToolBar::AddToolBarForImageCollection(IDR_MENU_IMAGES, theApp.m_bHiColorIcons ? IDB_MENU_IMAGES_24 : 0);
 
 	// create docking windows
-	//if (!CreateDockingWindows())
+	//if (!CreateFileView())
 	m_vecUserDlgs.clear();
 	int nBasePaneCount = AppXml()->GetAttributeInt(_T("BaseDlgNodeCount"), 0);
 	if(nBasePaneCount > 0)
@@ -159,7 +159,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 			m_vecUserDlgs.push_back(oneItem);
 		}
 	}
-	else
+	else if(nBasePaneCount == 0)//没配置文件，默认创建一个。
 	{
 		stBasePane oneItem;
 		oneItem.pBaseDlg = new CBaseDlg;
@@ -193,7 +193,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	}
 
-	CreateDockingWindows();
+	CreateFileView();
 
 
 	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
@@ -350,7 +350,7 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWi
 
 	return TRUE;
 }
-BOOL CMainFrame::CreateDockingWindows()
+BOOL CMainFrame::CreateFileView()
 {
 	BOOL bNameValid;
 

@@ -83,7 +83,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	BOOL CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWidth);
-	BOOL CreateDockingWindows();
+	BOOL CreateFileView();
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
 };
 
