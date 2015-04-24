@@ -57,11 +57,11 @@ public:
 	CMFCToolBarImages m_UserImages;
 
 	CMFCRibbonBar     m_wndRibbonBar;
-	CMFCRibbonApplicationButton m_MainButton;
+	//CMFCRibbonApplicationButton m_MainButton;
 
 	CFileView         m_wndFileView;
 	COutlookBar       m_wndNavigationBar;
-	VecBasePanes	  m_vecUserDlgs;
+	VecBasePanes	  m_vecUserDlgs; 
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

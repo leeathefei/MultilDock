@@ -103,6 +103,9 @@
     <None Include="res\buttons.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\ribbon1.mfcribbon-ms">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChildFrm.h">

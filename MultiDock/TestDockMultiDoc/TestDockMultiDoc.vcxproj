@@ -113,6 +113,7 @@
     <None Include="res\pages_small.bmp" />
     <None Include="res\pages_small_hc.bmp" />
     <None Include="res\ribbon.mfcribbon-ms" />
+    <None Include="res\ribbon1.mfcribbon-ms" />
     <None Include="res\sort.bmp" />
     <None Include="res\sort_hc.bmp" />
     <None Include="res\TestDockMultiDoc.ico" />
