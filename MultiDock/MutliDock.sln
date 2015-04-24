@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiDock", "TestDockMultiDoc\TestDockMultiDoc.vcxproj", "{8C8EBA38-0CE4-4D0B-AD38-FF8F4FE0CD5A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiDock", "MultiDock\MultiDock.vcxproj", "{8C8EBA38-0CE4-4D0B-AD38-FF8F4FE0CD5A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Module1", "Module1\Module1.vcxproj", "{B572F210-8588-4FF3-B445-84777205E004}"
 EndProject

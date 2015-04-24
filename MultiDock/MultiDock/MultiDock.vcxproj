@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8C8EBA38-0CE4-4D0B-AD38-FF8F4FE0CD5A}</ProjectGuid>
-    <RootNamespace>TestDockMultiDoc</RootNamespace>
+    <RootNamespace>MultiDock</RootNamespace>
     <Keyword>MFCProj</Keyword>
     <ProjectName>MultiDock</ProjectName>
   </PropertyGroup>
@@ -116,9 +116,9 @@
     <None Include="res\ribbon1.mfcribbon-ms" />
     <None Include="res\sort.bmp" />
     <None Include="res\sort_hc.bmp" />
-    <None Include="res\TestDockMultiDoc.ico" />
-    <None Include="res\TestDockMultiDoc.rc2" />
-    <None Include="res\TestDockMultiDocDoc.ico" />
+    <None Include="res\MultiDock.ico" />
+    <None Include="res\MultiDock.rc2" />
+    <None Include="res\MultiDockDoc.ico" />
     <None Include="res\Toolbar.bmp" />
     <None Include="res\Toolbar256.bmp" />
     <None Include="res\writelarge.bmp" />
@@ -175,14 +175,14 @@
     <ClCompile Include="XmlConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestDockMultiDoc.rc" />
+    <ResourceCompile Include="MultiDock.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="TestDockMultiDoc.rc" />
+      <UserProperties RESOURCE_FILE="MultiDock.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

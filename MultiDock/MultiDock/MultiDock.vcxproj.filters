@@ -49,13 +49,13 @@
     <None Include="UserImages.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\TestDockMultiDoc.rc2">
+    <None Include="res\MultiDock.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\TestDockMultiDocDoc.ico">
+    <None Include="res\MultiDockDoc.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\TestDockMultiDoc.ico">
+    <None Include="res\MultiDock.ico">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\Toolbar.bmp">
@@ -238,7 +238,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestDockMultiDoc.rc">
+    <ResourceCompile Include="MultiDock.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
