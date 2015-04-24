@@ -44,3 +44,16 @@ Temporary Items
 *.suo
 *.sdf
 *.opensdf
+*.exp
+*.ilk
+*.pdb
+*.exe
+*.tlog
+*.obj
+*.log
+*.manifest
+*.res
+*.lastbuildstate
+*.pch
+*.idb
+*.cache
