@@ -126,15 +126,22 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\CATDocTemplate.h" />
+    <ClInclude Include="..\Common\ModuleDefs.h" />
+    <ClInclude Include="..\Common\ModuleManager.h" />
+    <ClInclude Include="..\Common\ResourceHandle.h" />
     <ClInclude Include="BaseDlg.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="CommDefine.h" />
+    <ClInclude Include="CSVFileReader.h" />
     <ClInclude Include="DlgConfig.h" />
     <ClInclude Include="DlgPaneConfig.h" />
     <ClInclude Include="DlgTest1.h" />
     <ClInclude Include="DlgTest2.h" />
     <ClInclude Include="DlgTest3.h" />
     <ClInclude Include="DlgTest4.h" />
+    <ClInclude Include="FileHelper.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -150,15 +157,19 @@
     <ClInclude Include="XmlConfig.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\CATDocTemplate.cpp" />
+    <ClCompile Include="..\Common\ModuleManager.cpp" />
     <ClCompile Include="BaseDlg.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="CSVFileReader.cpp" />
     <ClCompile Include="DlgConfig.cpp" />
     <ClCompile Include="DlgPaneConfig.cpp" />
     <ClCompile Include="DlgTest1.cpp" />
     <ClCompile Include="DlgTest2.cpp" />
     <ClCompile Include="DlgTest3.cpp" />
     <ClCompile Include="DlgTest4.cpp" />
+    <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />

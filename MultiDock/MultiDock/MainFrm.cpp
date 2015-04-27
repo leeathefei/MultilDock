@@ -6,9 +6,26 @@
 #include "DlgPaneConfig.h"
 #include "DlgConfig.h"
 
+#include "CSVFileReader.h"
+#include "FileHelper.h"
+#include "..\Common\ResourceHandle.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+
+
+#define  MAX_NUM_MODULES		   (300)
+#define  MAX_NUM_UTILITES		   (300)
+#define  MAX_NUM_VIEW_TYPES		(300)
+
+#define  BASE_MODULES_MENU_ID	   (34000)
+#define  BASE_UTILITIES_MENU_ID	(34000 + (MAX_NUM_MODULES*2))
+#define  BASE_VIEWS_MENU_ID		(BASE_MODULES_MENU_ID + MAX_NUM_MODULES)
+
+
+
 
 
 IMPLEMENT_DYNAMIC(CMainFrame, CMDIFrameWndEx)
@@ -81,6 +98,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
+	m_wndMenuBar.SetRecentlyUsedMenus(FALSE);
+	m_wndMenuBar.SetShowAllCommands(TRUE);
 
 	// prevent the menu bar from taking the focus on activation
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
@@ -548,4 +567,117 @@ void CMainFrame::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 {
 	CMDIFrameWndEx::OnSettingChange(uFlags, lpszSection);
 }
+//////////////////////////////////////////////////////////////////////////
 
+void CMainFrame::CacheMenus()
+{
+	CCSVFile modules;
+	if( !modules.Load() )
+	{
+		AfxMessageBox(_T("Load ...\\Config\\InternalModules.csv file failed!"));
+		return;
+	}
+
+
+	int nModuleMenuId  = 0;
+	int nUtilityMenuId = 0;
+	for(int i=0; i<modules.GetCount(); ++i)
+	{
+		try
+		{
+			CMenuCommand mc;
+			mc.m_strDll = modules.ReadString(i, _T("DLLName"));
+			mc.m_strTitle =  modules.ReadString(i, _T("Title"));
+			mc.m_nMenuID = i;
+			mc.m_bAddToMenu = modules.ReadBool(i,_T("IsAddToMenu"));
+			mc.m_bUtility = modules.ReadBool(i,_T("IsUtility"));
+			mc.m_bHasView = modules.ReadBool(i,_T("HasView"));
+			mc.m_bSingleView = modules.ReadBool(i,_T("IsSingleView"));
+			mc.m_bLoadAtStartup = modules.ReadBool(i,_T("IsLoadAtStartup"));
+			if(mc.m_bUtility)
+				mc.m_nMenuID = nUtilityMenuId++;
+			else
+				mc.m_nMenuID = nModuleMenuId++;
+
+			m_AllCommands.AddTail(mc);
+		}
+		catch(...)
+		{
+			continue;
+		}
+	}
+
+	if(m_AllCommands.GetCount()==0)
+	{
+		AfxMessageBox(_T("Exec\\DB\\InternalModules.csv may be empty or corrupted!"));
+	}
+
+}
+
+void CMainFrame::LoadModuleMenuItems()
+{
+	CacheMenus();
+
+	POSITION	 pos;
+	for (pos  = m_AllCommands.GetHeadPosition(); pos !=NULL; )
+	{
+		CMenuCommand &mc = m_AllCommands.GetNext(pos);
+		if ( mc.m_bAddToMenu )
+			AddModuleMenuItem(mc.m_strTitle, mc.m_nMenuID, FALSE, mc.m_bUtility);
+
+		if(!mc.hLib)
+		{
+			mc.hLib = LoadLibrary(mc.m_strDll);
+		}
+
+		if(mc.hLib && !mc.m_bUtility )
+		{
+			typedef BOOL (*LPFN_GETICONRESOUCEID)(UINT&);
+			LPFN_GETICONRESOUCEID pFunc = (LPFN_GETICONRESOUCEID)GetProcAddress(mc.hLib, "GetIconResourceID");
+			if(pFunc)
+			{
+				UINT nResID;
+				if(pFunc(nResID))
+				{
+					CIntaffCommonResourceHandle resHandler(mc.m_strDll, __FILEW__, __LINE__);
+					HICON hIcon = (HICON) LoadImage( AfxGetResourceHandle(), MAKEINTRESOURCE( nResID ), IMAGE_ICON, 16, 16, 0 );
+					LOG_ERROR_IF(hIcon==NULL, _T("LoadImage failed. errno:%u"), GetLastError());
+					mc.m_hIcon = hIcon;
+				}
+			}
+		}
+
+	}
+
+	m_wndMenuBar.RecalcLayout();
+}
+
+void CMainFrame::AddModuleMenuItem(const CString &strModuleName, int nID, BOOL bIsView /*=FALSE*/, BOOL bIsUtility /*=FALSE*/)
+{
+	CMenu menu;
+	menu.Attach(m_wndMenuBar.GetHMenu());
+
+	BOOL bAppend=FALSE;
+	int nIndex = FindMenuItem(&menu, m_strModuleMenuItems[bIsUtility?1:0]);
+	CMenu *pSubMenu = menu.GetSubMenu(nIndex);
+	if(bIsView)
+		bAppend = pSubMenu->AppendMenu(MF_ENABLED|MF_STRING, BASE_VIEWS_MENU_ID+nID, strModuleName);
+	else if(bIsUtility)
+		bAppend = pSubMenu->AppendMenu(MF_ENABLED|MF_STRING, BASE_UTILITIES_MENU_ID+nID, strModuleName);
+	else
+		bAppend = pSubMenu->AppendMenu(MF_ENABLED|MF_STRING, BASE_MODULES_MENU_ID+nID, strModuleName);
+
+
+	// Remove dummy
+	if( pSubMenu->GetMenuItemCount() )
+	{
+		CString str;
+		pSubMenu->GetMenuString(0, str, MF_BYPOSITION);
+		if( str.CompareNoCase(_T("Dummy"))==0 )
+		{
+			pSubMenu->RemoveMenu(0, MF_BYPOSITION);
+		}
+	}
+
+	m_wndMenuBar.CreateFromMenu(menu.Detach(), TRUE, TRUE);
+}

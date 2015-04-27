@@ -146,6 +146,8 @@ BOOL CMultiDockApp::InitInstance()
 	pMainFrame->ShowWindow(m_nCmdShow);
 	pMainFrame->UpdateWindow();
 
+	pMainFrame->LoadModuleMenuItems();
+
 	return TRUE;
 }
 

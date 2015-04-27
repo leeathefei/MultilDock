@@ -4,6 +4,7 @@
 #include "BaseDlg.h"
 #include <vector>
 #include <string>
+#include "CommDefine.h"
 
 using namespace std;
 
@@ -38,13 +39,26 @@ class CMainFrame : public CMDIFrameWndEx
 public:
 	CMainFrame();
 
+
+public:
+	void LoadModuleMenuItems();
+	
+protected:
+	void CacheMenus();
+	void AddModuleMenuItem(const CString &strModuleName, int nID, 
+							BOOL bIsView /*=FALSE*/, BOOL bIsUtility /*=FALSE*/);
+
+protected:
+	CMenuCommandList  m_AllCommands;
+
+
+public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual BOOL LoadFrame(UINT nIDResource, 
 		DWORD dwDefaultStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, 
 		CWnd* pParentWnd = NULL, CCreateContext* pContext = NULL);
-
-public:
 	virtual ~CMainFrame();
+
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
