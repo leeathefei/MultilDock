@@ -87,7 +87,7 @@ void CMainFrame::OnClose()
 	//m_exitEvent.SetEvent();
 
 	//ResetWorkspaceNode();
-	EnumTabbedView();
+	//EnumTabbedView();
 	//EnumDockablePane();
 
 	CMDIFrameWndEx::OnClose();
