@@ -1,13 +1,10 @@
 <config>
 	<SampleViewer/>
 	<Workspace>
-		<TabbedView>
-			<Alignment>1</Alignment>
-			<Group0>
-				<Tab0 Name="SampleViewer">false</Tab0>
-			</Group0>
-		</TabbedView>
 		<DockablePane>false</DockablePane>
+		<TabbedView>
+			<Alignment>0</Alignment>
+		</TabbedView>
 	</Workspace>
 	<BaseDlgNodeCount>4</BaseDlgNodeCount>
 	<BaseDlgNode>
