@@ -1,7 +1,7 @@
 
 #include "stdafx.h"
-#include "..\Common\CSVFileReader.h"
-#include "..\Common\FileHelper.h"
+#include "CSVFileReader.h"
+#include "FileHelper.h"
 
 CCSVFile::CCSVFile()
 {

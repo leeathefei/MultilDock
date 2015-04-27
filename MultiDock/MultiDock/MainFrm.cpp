@@ -6,8 +6,8 @@
 #include "DlgPaneConfig.h"
 #include "DlgConfig.h"
 
-#include "CSVFileReader.h"
-#include "FileHelper.h"
+#include "..\Common\CSVFileReader.h"
+#include "..\Common\FileHelper.h"
 #include "..\Common\ResourceHandle.h"
 
 #ifdef _DEBUG
