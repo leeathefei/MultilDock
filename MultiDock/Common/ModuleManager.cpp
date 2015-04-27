@@ -11,7 +11,7 @@ CModuleManager::~CModuleManager(void)
 }
 
 
-BOOL CModuleManager::RegisterDocTemplate(CCATDocTemplate* pDocTemplate)
+BOOL CModuleManager::RegisterDocTemplate(CMTDocTemplate* pDocTemplate)
 {
    if( pDocTemplate==NULL  )
       return FALSE;
@@ -81,7 +81,6 @@ void CModuleManager::RemoveToolBar(CMFCToolBar* pToolbar)
 
 BOOL CModuleManager::RegisterModulePane( CWnd* pWnd/*=NULL*/, LPCTSTR lpszWndName/*=NULL*/, HICON hIcon/*=NULL*/, EPANE_ALIGNMENT align/*=ALIGN_VERTICAL*/, bool bAttachToPrev/*=true*/, bool bAutoDelete/*=true*/)
 {
-   LOG_INFO(_T("Register %s"), lpszWndName);
    MODULE_WINDOW_DEF moduleDef;
    moduleDef.pWnd = pWnd;
    moduleDef.strWindowName = lpszWndName;
@@ -91,15 +90,12 @@ BOOL CModuleManager::RegisterModulePane( CWnd* pWnd/*=NULL*/, LPCTSTR lpszWndNam
    moduleDef.hIcon = hIcon;
    LRESULT lErrCode = SendMainWndMessage(WM_USER+1, (WPARAM)&moduleDef, 0);
    
-   LOG_INFO_ERROR(lErrCode==0, _T("Return code %d"), lErrCode);
    return lErrCode==0? TRUE:FALSE;
 }
 
 BOOL CModuleManager::UnregisterModulePane(LPCTSTR lpszWndName)
 {
-   LOG_INFO(_T("Unregister %s"), lpszWndName);
    LRESULT lErrCode = SendMainWndMessage(WM_USER+4, 0, (LPARAM)lpszWndName);
-   LOG_INFO_ERROR(lErrCode==0, _T("Return code %d"), lErrCode);
    return lErrCode==0? TRUE:FALSE;
 }
 

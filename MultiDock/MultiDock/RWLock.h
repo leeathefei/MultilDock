@@ -14,13 +14,8 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifdef _CATCORE_DLL
-#define DLL_EXPORT __declspec(dllexport)
-#else
-#define DLL_EXPORT
-#endif
 
-class DLL_EXPORT CRWLock {
+class  CRWLock {
 public:
    CRWLock();                 // Constructor
    ~CRWLock();                // Destructor
@@ -43,7 +38,7 @@ public:
 };
 
 
-class DLL_EXPORT CRWReadLock
+class  CRWReadLock
 {
    CRWReadLock(CRWLock& lock)
       : m_Lock(lock)
@@ -59,7 +54,7 @@ class DLL_EXPORT CRWReadLock
    CRWLock& m_Lock;
 };
 
-class DLL_EXPORT CRWWriteLock
+class  CRWWriteLock
 {
    CRWWriteLock(CRWLock& lock)
       : m_Lock(lock)
@@ -78,7 +73,7 @@ class DLL_EXPORT CRWWriteLock
 
 //////////////////////////////////////////////////////////////////////////
 //Extended
-class DLL_EXPORT CRWReader
+class  CRWReader
 {
 public:
    CRWReader(CRWLock& lock)
@@ -112,7 +107,7 @@ public:
    bool m_bLocked;
 };
 
-class DLL_EXPORT CRWWriter
+class  CRWWriter
 {
 public:
    CRWWriter(CRWLock& lock)

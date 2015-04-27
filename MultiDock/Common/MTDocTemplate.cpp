@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////
-// CATDocTemplate.cpp: implementation of the CCATDocTemplate class.
+// MTDocTemplate.cpp: implementation of the CMTDocTemplate class.
 
 #include "stdafx.h"
-#include "CATDocTemplate.h"
+#include "MTDocTemplate.h"
 #include "ResourceHandle.h"
 
 
@@ -17,9 +17,9 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_DYNAMIC(CCATDocTemplate, CMultiDocTemplate)
+IMPLEMENT_DYNAMIC(CMTDocTemplate, CMultiDocTemplate)
 
-CCATDocTemplate::CCATDocTemplate(UINT nIDResource, CRuntimeClass* pDocClass, CRuntimeClass* pFrameClass, CRuntimeClass* pViewClass, const CString &strDllName, const CString &strTemplateName) :
+CMTDocTemplate::CMTDocTemplate(UINT nIDResource, CRuntimeClass* pDocClass, CRuntimeClass* pFrameClass, CRuntimeClass* pViewClass, const CString &strDllName, const CString &strTemplateName) :
 CMultiDocTemplate(nIDResource, pDocClass, pFrameClass, pViewClass)
 {
    m_nIDResource = nIDResource;
@@ -27,13 +27,13 @@ CMultiDocTemplate(nIDResource, pDocClass, pFrameClass, pViewClass)
    m_TemplateName = strTemplateName;
 }
 
-CCATDocTemplate::~CCATDocTemplate()
+CMTDocTemplate::~CMTDocTemplate()
 {
 
 }
 
 
-void CCATDocTemplate::LoadTemplate()
+void CMTDocTemplate::LoadTemplate()
 {
    CMultiDocTemplate::LoadTemplate();
 
@@ -95,7 +95,7 @@ void CCATDocTemplate::LoadTemplate()
 #define MAINMENU_ITEMNUM_LEFT   4
 #define MAINMENU_ITEMNUM_RIGHT  4
 
-void CCATDocTemplate::DuplicateMenu(const CMenu *pSource, CMenu *pTarget)
+void CMTDocTemplate::DuplicateMenu(const CMenu *pSource, CMenu *pTarget)
 {
    int count = pSource->GetMenuItemCount();
    CString strMenuItem;
@@ -121,7 +121,7 @@ void CCATDocTemplate::DuplicateMenu(const CMenu *pSource, CMenu *pTarget)
 }
 
 
-void CCATDocTemplate::AppendMenu(CMenu *pFirst, CMenu *pSecond, BOOL bMain /*=FALSE*/)
+void CMTDocTemplate::AppendMenu(CMenu *pFirst, CMenu *pSecond, BOOL bMain /*=FALSE*/)
 {
    CString strMenuItem;
    for (UINT i=0; i<pSecond->GetMenuItemCount(); i++)
@@ -157,7 +157,7 @@ void CCATDocTemplate::AppendMenu(CMenu *pFirst, CMenu *pSecond, BOOL bMain /*=FA
 }
 
 
-CDocument* CCATDocTemplate::OpenDocumentFile(LPCTSTR lpszPathName, LPCTSTR lpszDocTitle, BOOL bMakeVisible)
+CDocument* CMTDocTemplate::OpenDocumentFile(LPCTSTR lpszPathName, LPCTSTR lpszDocTitle, BOOL bMakeVisible)
 {
    CIntaffCommonResourceHandle resouceHandler(m_ModuleName, __FILEW__, __LINE__);
    CDocument* pDocument = CreateNewDocument();

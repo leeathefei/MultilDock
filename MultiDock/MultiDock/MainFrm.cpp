@@ -641,7 +641,7 @@ void CMainFrame::LoadModuleMenuItems()
 				{
 					CIntaffCommonResourceHandle resHandler(mc.m_strDll, __FILEW__, __LINE__);
 					HICON hIcon = (HICON) LoadImage( AfxGetResourceHandle(), MAKEINTRESOURCE( nResID ), IMAGE_ICON, 16, 16, 0 );
-					LOG_ERROR_IF(hIcon==NULL, _T("LoadImage failed. errno:%u"), GetLastError());
+					
 					mc.m_hIcon = hIcon;
 				}
 			}

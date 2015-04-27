@@ -186,9 +186,6 @@
     <ClInclude Include="CommDefine.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\CATDocTemplate.h">
-      <Filter>Source Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\Common\ModuleDefs.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
@@ -196,6 +193,9 @@
       <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\ResourceHandle.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\MTDocTemplate.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -266,10 +266,10 @@
     <ClCompile Include="FileHelper.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\CATDocTemplate.cpp">
+    <ClCompile Include="..\Common\ModuleManager.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\ModuleManager.cpp">
+    <ClCompile Include="..\Common\MTDocTemplate.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>

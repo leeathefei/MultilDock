@@ -87,24 +87,9 @@ typedef   PFN_DLLGETPANESWORKSPACE LPFN_DLLGETPANESWORKSPACE;
 
 //Command ID Range Assigned for all modules 
 //Module                                From     To
-//LogViewer                          35000    35799
-//MSCViewer                        35800    35999
-//GraphViewer                     36000    36199
-//ASN1Viewer                      36200    36399
-//MiniViewer                        36600    36799
-//StructureViewer              37000    37199
-//TestStudio                          37200    37399
-//UEConsole                          37400    37499
-//ExtViewer                           37500    38499 
-//MultiComm                        38500    38599
-//FlashExplorer                     38600    38799
-//NvmEditor                          38800    38999
-//CommandConsole           39000    39199
-//CATAudio                 39200    39699
-//ChipLab                  39700    39900
-//MapViewer                39900    40400
-//RFCalTool                40401    40900
-//Netmonitor               40901    41100
+//module1                          35000    35799
+//module2                        35800    35999
+
 
 #define     WM_SET_WKSDATA       WM_USER+500
 #define     WM_GET_WKSDATA       WM_USER+501

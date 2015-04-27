@@ -126,7 +126,7 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\CATDocTemplate.h" />
+    <ClInclude Include="..\common\MTDocTemplate.h" />
     <ClInclude Include="..\Common\ModuleDefs.h" />
     <ClInclude Include="..\Common\ModuleManager.h" />
     <ClInclude Include="..\Common\ResourceHandle.h" />
@@ -157,7 +157,7 @@
     <ClInclude Include="XmlConfig.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Common\CATDocTemplate.cpp" />
+    <ClCompile Include="..\Common\MTDocTemplate.cpp" />
     <ClCompile Include="..\Common\ModuleManager.cpp" />
     <ClCompile Include="BaseDlg.cpp" />
     <ClCompile Include="ChildFrm.cpp" />

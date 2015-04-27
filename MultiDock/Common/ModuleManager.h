@@ -1,10 +1,10 @@
 #pragma once
 #include "..\Common\ModuleDefs.h"
 #include "..\Common\ResourceHandle.h"
-#include "..\Common\CATDocTemplate.h"
+#include "..\Common\MTDocTemplate.h"
 #include "..\Common\GeneralMacroDefine.h"
 
-class CCATDocTemplate;
+class CMTDocTemplate;
 class  CModuleManager
 {
 public:
@@ -12,7 +12,7 @@ public:
    ~CModuleManager(void);
 
    // Only for modules which contain doc/view
-   virtual BOOL RegisterDocTemplate(CCATDocTemplate* pDocTemplate=NULL);
+   virtual BOOL RegisterDocTemplate(CMTDocTemplate* pDocTemplate=NULL);
    virtual BOOL RegisterToolBar(UINT nToolbarResID, CMFCToolBar* &pToolbar);
    virtual void RemoveToolBar(CMFCToolBar* pToolbar);
    virtual void ShowToolBar(CMFCToolBar* pToolbar, BOOL bShow=TRUE);

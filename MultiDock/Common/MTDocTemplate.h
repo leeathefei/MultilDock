@@ -1,13 +1,13 @@
 #pragma once
 #include "GeneralMacroDefine.h"
 
-class CATCORE_DLLEXPORT CCATDocTemplate : public CMultiDocTemplate  
+class  CMTDocTemplate : public CMultiDocTemplate  
 {
-   DECLARE_DYNAMIC(CCATDocTemplate)
+   DECLARE_DYNAMIC(CMTDocTemplate)
 
 public:
-   CCATDocTemplate(UINT nIDResource, CRuntimeClass* pDocClass, CRuntimeClass* pFrameClass, CRuntimeClass* pViewClass, const CString &strDllName, const CString &strTemplateName);
-   virtual ~CCATDocTemplate();
+   CMTDocTemplate(UINT nIDResource, CRuntimeClass* pDocClass, CRuntimeClass* pFrameClass, CRuntimeClass* pViewClass, const CString &strDllName, const CString &strTemplateName);
+   virtual ~CMTDocTemplate();
 
 public:
    void LoadTemplate();
