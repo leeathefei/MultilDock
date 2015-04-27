@@ -1,7 +1,5 @@
 #include "StdAfx.h"
 #include "XmlConfig.h"
-//#include "Logging/Logging.h"
-//#include "MrvlCommon/GeneralUtils.h"
 
 #define ENCODE(x) m_bKnownLanguage? (x):CString(CStringA(UrlEncode(CStringA(CString(x)).GetBuffer(0)).c_str())).GetBuffer(0)
 #define DECODE(x) m_bKnownLanguage? (x):CString(CStringA(UrlDecode(CStringA(CString(x)).GetBuffer(0)).c_str())).GetBuffer(0)

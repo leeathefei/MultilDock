@@ -11,6 +11,7 @@
 #include "ChildFrm.h"
 #include "MultiDockDoc.h"
 #include "MultiDockView.h"
+#include "..\Common\MTDocTemplate.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -233,10 +234,10 @@ CView* CMultiDockApp::OpenView(const CString &strViewName, BOOL bSingle /*=FALSE
 	{
 		CDocTemplate *pTemp = GetNextDocTemplate(pos);
 
-		if ( strcmp(pTemp->GetRuntimeClass()->m_lpszClassName, "CCATDocTemplate") != 0 )
+		if ( strcmp(pTemp->GetRuntimeClass()->m_lpszClassName, "CMTDocTemplate") != 0 )
 			continue;
 
-		CCATDocTemplate *pTemplate = (CCATDocTemplate *)pTemp; 
+		CMTDocTemplate *pTemplate = (CMTDocTemplate *)pTemp; 
 
 		if ( pTemplate->m_TemplateName.CompareNoCase(strViewName) == 0 )
 		{
@@ -277,10 +278,10 @@ int CMultiDockApp::GetNumOfView( const CString& strViewName )
 	{
 		CDocTemplate *pTemp = GetNextDocTemplate(pos);
 
-		if ( strcmp(pTemp->GetRuntimeClass()->m_lpszClassName, "CCATDocTemplate") != 0 )
+		if ( strcmp(pTemp->GetRuntimeClass()->m_lpszClassName, "CMTDocTemplate") != 0 )
 			continue;
 
-		CCATDocTemplate *pTemplate = (CCATDocTemplate *)pTemp; 
+		CMTDocTemplate *pTemplate = (CMTDocTemplate *)pTemp; 
 
 		if ( pTemplate->m_TemplateName.CompareNoCase(strViewName) == 0 )
 		{

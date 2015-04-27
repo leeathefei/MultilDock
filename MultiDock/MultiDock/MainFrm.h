@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include "CommDefine.h"
-#include "Workspace.h"
+#include "..\Common\Workspace.h"
 
 
 using namespace std;
@@ -57,6 +57,7 @@ protected:
 	BOOL OpenModule(UINT nID, bool onStartup = true);
 	void EnumTabbedView();
 	const CMenuCommand* GetMenuCommand(LPCTSTR lpszModuleName);
+	int  FindMenuItem(CMenu *pMenu, const CString &str);
 
 public:
 	virtual ~CMainFrame();
@@ -81,6 +82,7 @@ public:
 #endif
 
 public: 
+	static CString	  m_strModuleMenuItems[2];
 	CMFCMenuBar       m_wndMenuBar;
 	CMFCToolBar       m_wndToolBar;
 	CMFCStatusBar     m_wndStatusBar;

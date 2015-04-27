@@ -34,6 +34,8 @@ IMPLEMENT_DYNAMIC(CMainFrame, CMDIFrameWndEx)
 const int  iMaxUserToolbars = 10;
 const UINT uiFirstUserToolBarId = AFX_IDW_CONTROLBAR_FIRST + 40;
 const UINT uiLastUserToolBarId = uiFirstUserToolBarId + iMaxUserToolbars - 1;
+CString CMainFrame::m_strModuleMenuItems[2] = {_T("&Modules"), _T("&Utilities")};
+
 
 BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_WM_CREATE()
@@ -698,6 +700,19 @@ void CMainFrame::AddModuleMenuItem(const CString &strModuleName, int nID, BOOL b
 	}
 
 	m_wndMenuBar.CreateFromMenu(menu.Detach(), TRUE, TRUE);
+}
+
+int CMainFrame::FindMenuItem(CMenu *pMenu, const CString &str)
+{
+	int count = pMenu->GetMenuItemCount();
+	CString temp;
+	for (int i=0; i<count; i++)
+	{
+		if( pMenu->GetMenuString(i, temp, MF_BYPOSITION) && str == temp)
+			return i;
+	}
+
+	return -1;
 }
 
 LRESULT CMainFrame::OnInitModulePanes(WPARAM W, LPARAM L)

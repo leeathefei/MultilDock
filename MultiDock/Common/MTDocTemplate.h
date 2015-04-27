@@ -1,5 +1,4 @@
 #pragma once
-#include "GeneralMacroDefine.h"
 
 class  CMTDocTemplate : public CMultiDocTemplate  
 {

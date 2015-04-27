@@ -2,7 +2,6 @@
 #include "..\Common\ModuleDefs.h"
 #include "..\Common\ResourceHandle.h"
 #include "..\Common\MTDocTemplate.h"
-#include "..\Common\GeneralMacroDefine.h"
 
 class CMTDocTemplate;
 class  CModuleManager

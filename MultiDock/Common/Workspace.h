@@ -28,8 +28,8 @@ public:
 class CWorkspace : public CWorkspaceBase
 {
 public:
-   CWorkspace(void){};
-   virtual ~CWorkspace(void){};
+   CWorkspace(void);
+   virtual ~CWorkspace(void);
    enum GROUP_ALIGNMENT
    {
       GROUP_NO_ALIGN,
