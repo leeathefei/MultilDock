@@ -12,6 +12,8 @@
 #include "MultiDockDoc.h"
 #include "MultiDockView.h"
 #include "..\Common\MTDocTemplate.h"
+#include "..\Common\FileHelper.h"
+#include "..\Common\XmlConfig.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

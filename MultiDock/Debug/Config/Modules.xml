@@ -1,0 +1,28 @@
+<config>
+	<SampleViewer/>
+	<Workspace>
+		<TabbedView>
+			<Alignment>1</Alignment>
+			<Group0>
+				<Tab0 Name="SampleViewer">false</Tab0>
+			</Group0>
+		</TabbedView>
+		<DockablePane>false</DockablePane>
+	</Workspace>
+	<BaseDlgNodeCount>4</BaseDlgNodeCount>
+	<BaseDlgNode>
+		<Index_1>1</Index_1>
+		<Title_1>测试面板一</Title_1>
+		<bShow_1>1</bShow_1>
+		<Index_2>2</Index_2>
+		<Title_2>测试面板二</Title_2>
+		<bShow_2>1</bShow_2>
+		<Index_3>3</Index_3>
+		<Title_3>测试面板三</Title_3>
+		<bShow_3>1</bShow_3>
+		<Index_4>4</Index_4>
+		<Title_4>测试面板四</Title_4>
+		<bShow_4>1</bShow_4>
+	</BaseDlgNode>
+</config>
+

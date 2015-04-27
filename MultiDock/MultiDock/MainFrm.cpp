@@ -57,6 +57,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_OFF_2007_BLUE, ID_VIEW_APPLOOK_OFF_2007_AQUA, &CMainFrame::OnUpdateApplicationLook)
 	ON_WM_SETTINGCHANGE()
 
+	ON_MESSAGE(WM_USER+100, OnGetMainMenu)
+	ON_MESSAGE(WM_USER+101, OnGetMainMenuBar)
 	ON_MESSAGE(WM_INIT_MODULES, OnInitModulePanes)
 	//ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
 END_MESSAGE_MAP()
@@ -91,6 +93,19 @@ void CMainFrame::OnClose()
 	CMDIFrameWndEx::OnClose();
 }
 
+LRESULT CMainFrame::OnGetMainMenu(WPARAM wp, LPARAM )
+{
+	HMENU hMenu = m_wndMenuBar.GetHMenu();
+	TRACE1("Main HMenu:%08x\n", (DWORD)hMenu);
+	CMenu* pMenu = CMenu::FromHandle(hMenu);
+	return  (LRESULT)pMenu;
+}
+
+LRESULT CMainFrame::OnGetMainMenuBar(WPARAM wp, LPARAM )
+{
+	return (LRESULT)&m_wndMenuBar;
+}
+
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CMDIFrameWndEx::OnCreate(lpCreateStruct) == -1)
@@ -108,6 +123,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	mdiTabParams.m_bDocumentMenu = TRUE; // enable the document menu at the right edge of the tab area
 	EnableMDITabbedGroups(TRUE, mdiTabParams);
 
+	//Lee:initialize config reader.
+	CString strModulesXml = CFileHelper::GetModuleDir()+_T("\\Config\\Modules.xml");
+	CXmlConfig::Instance(strModulesXml);
 
 	if (!m_wndMenuBar.Create(this))
 	{

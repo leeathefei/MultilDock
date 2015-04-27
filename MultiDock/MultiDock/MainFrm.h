@@ -118,6 +118,8 @@ protected:
 	afx_msg void OnSettingChange(UINT uFlags, LPCTSTR lpszSection);
 
 	afx_msg void OnClose();
+	afx_msg LRESULT OnGetMainMenu(WPARAM, LPARAM);
+	afx_msg LRESULT OnGetMainMenuBar(WPARAM, LPARAM);
 	
 	
 	
