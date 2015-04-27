@@ -5,7 +5,7 @@
 #include "MultiDock.h"
 #include "DlgPaneConfig.h"
 #include "afxdialogex.h"
-#include "XmlConfig.h"
+#include "..\Common\XmlConfig.h"
 #include "MainFrm.h"
 
 // CDlgPaneConfig dialog

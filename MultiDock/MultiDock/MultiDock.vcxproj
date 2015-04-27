@@ -130,6 +130,9 @@
     <ClInclude Include="..\Common\ModuleDefs.h" />
     <ClInclude Include="..\Common\ModuleManager.h" />
     <ClInclude Include="..\Common\ResourceHandle.h" />
+    <ClInclude Include="..\Common\RWLock.h" />
+    <ClInclude Include="..\Common\Workspace.h" />
+    <ClInclude Include="..\Common\XmlConfig.h" />
     <ClInclude Include="BaseDlg.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ClassView.h" />
@@ -147,18 +150,19 @@
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="RWLock.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="MultiDock.h" />
     <ClInclude Include="MultiDockDoc.h" />
     <ClInclude Include="MultiDockView.h" />
     <ClInclude Include="ViewTree.h" />
-    <ClInclude Include="XmlConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\MTDocTemplate.cpp" />
     <ClCompile Include="..\Common\ModuleManager.cpp" />
+    <ClCompile Include="..\Common\RWLock.cpp" />
+    <ClCompile Include="..\Common\Workspace.cpp" />
+    <ClCompile Include="..\Common\XmlConfig.cpp" />
     <ClCompile Include="BaseDlg.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ClassView.cpp" />
@@ -174,7 +178,6 @@
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
-    <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -183,7 +186,6 @@
     <ClCompile Include="MultiDockDoc.cpp" />
     <ClCompile Include="MultiDockView.cpp" />
     <ClCompile Include="ViewTree.cpp" />
-    <ClCompile Include="XmlConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MultiDock.rc" />

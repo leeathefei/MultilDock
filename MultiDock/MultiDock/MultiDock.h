@@ -35,6 +35,9 @@ public:
 
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+
+	CView* OpenView(const CString &strViewName, BOOL bSingle=FALSE);
+	int    GetNumOfView(const CString& strViewName);
 };
 
 extern CMultiDockApp theApp;

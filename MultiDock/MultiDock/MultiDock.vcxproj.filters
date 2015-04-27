@@ -13,9 +13,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Source Files\config">
-      <UniqueIdentifier>{0b1d4a04-f628-479a-9336-5b391d286a92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\User Interface">
       <UniqueIdentifier>{28e203c9-bcac-4e1a-a3af-db3c2b79d227}</UniqueIdentifier>
     </Filter>
@@ -135,12 +132,6 @@
     <ClInclude Include="OutputWnd.h">
       <Filter>Unused</Filter>
     </ClInclude>
-    <ClInclude Include="XmlConfig.h">
-      <Filter>Source Files\config</Filter>
-    </ClInclude>
-    <ClInclude Include="RWLock.h">
-      <Filter>Source Files\config</Filter>
-    </ClInclude>
     <ClInclude Include="MultiDock.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -177,9 +168,6 @@
     <ClInclude Include="BaseDlg.h">
       <Filter>Source Files\User Interface</Filter>
     </ClInclude>
-    <ClInclude Include="CSVFileReader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="FileHelper.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
@@ -196,6 +184,18 @@
       <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\common\MTDocTemplate.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVFileReader.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Workspace.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\RWLock.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\XmlConfig.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -217,12 +217,6 @@
     </ClCompile>
     <ClCompile Include="OutputWnd.cpp">
       <Filter>Unused</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlConfig.cpp">
-      <Filter>Source Files\config</Filter>
-    </ClCompile>
-    <ClCompile Include="RWLock.cpp">
-      <Filter>Source Files\config</Filter>
     </ClCompile>
     <ClCompile Include="MultiDock.cpp">
       <Filter>Source Files</Filter>
@@ -260,9 +254,6 @@
     <ClCompile Include="BaseDlg.cpp">
       <Filter>Source Files\User Interface</Filter>
     </ClCompile>
-    <ClCompile Include="CSVFileReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FileHelper.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
@@ -270,6 +261,18 @@
       <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\MTDocTemplate.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVFileReader.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Workspace.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\RWLock.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\XmlConfig.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>

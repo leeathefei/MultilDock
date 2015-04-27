@@ -2,10 +2,11 @@
 #include "stdafx.h"
 #include "MultiDock.h"
 #include "MainFrm.h"
-#include "XmlConfig.h"
+#include "..\Common\XmlConfig.h"
 #include "DlgPaneConfig.h"
 #include "DlgConfig.h"
 
+#include "..\Common\ModuleDefs.h"
 #include "..\Common\CSVFileReader.h"
 #include "..\Common\FileHelper.h"
 #include "..\Common\ResourceHandle.h"
@@ -25,7 +26,7 @@
 #define  BASE_VIEWS_MENU_ID		(BASE_MODULES_MENU_ID + MAX_NUM_MODULES)
 
 
-
+#define WM_INIT_MODULES				WM_USER+400
 
 
 IMPLEMENT_DYNAMIC(CMainFrame, CMDIFrameWndEx)
@@ -36,6 +37,7 @@ const UINT uiLastUserToolBarId = uiFirstUserToolBarId + iMaxUserToolbars - 1;
 
 BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_WM_CREATE()
+	ON_WM_CLOSE()
 	ON_COMMAND(ID_SET_PANE1_CMD1, &CMainFrame::OnRibbonPane1Cmd1)
 	ON_COMMAND(ID_SET_PANE1_CMD2, &CMainFrame::OnRibbonPane1Cmd2)
 	ON_COMMAND(ID_SET_PANE1_CMD3, &CMainFrame::OnRibbonPane1Cmd3)
@@ -52,6 +54,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_OFF_2007_BLUE, ID_VIEW_APPLOOK_OFF_2007_AQUA, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_OFF_2007_BLUE, ID_VIEW_APPLOOK_OFF_2007_AQUA, &CMainFrame::OnUpdateApplicationLook)
 	ON_WM_SETTINGCHANGE()
+
+	ON_MESSAGE(WM_INIT_MODULES, OnInitModulePanes)
 	//ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
 END_MESSAGE_MAP()
 
@@ -66,11 +70,23 @@ static UINT indicators[] =
 
 CMainFrame::CMainFrame()
 {
+	m_pViewLastCreated = NULL;
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_OFF_2007_BLUE);
 }
 
 CMainFrame::~CMainFrame()
 {
+}
+
+void CMainFrame::OnClose()
+{
+	//m_exitEvent.SetEvent();
+
+	//ResetWorkspaceNode();
+	EnumTabbedView();
+	//EnumDockablePane();
+
+	CMDIFrameWndEx::OnClose();
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -271,6 +287,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// Switch the order of document name and application name on the window title bar. This
 	// improves the usability of the taskbar because the document name is visible with the thumbnail.
 	ModifyStyle(0, FWS_PREFIXTITLE);
+
+	PostMessage(WM_INIT_MODULES);//OnInitModulePanes
 
 	return 0;
 }
@@ -680,4 +698,405 @@ void CMainFrame::AddModuleMenuItem(const CString &strModuleName, int nID, BOOL b
 	}
 
 	m_wndMenuBar.CreateFromMenu(menu.Detach(), TRUE, TRUE);
+}
+
+LRESULT CMainFrame::OnInitModulePanes(WPARAM W, LPARAM L)
+{
+	LockWindowUpdate();
+
+	// Open Startup modules
+	OpenStartupModules();
+
+	// Open Viewers
+	OpenLastUsedModules();
+
+	// Open DevComm Module
+	//OpenAlwaysShowPane();
+
+	// Activate Pane
+	//ActiveOnePaneByName(_T("Module1"), MODULE_WINDOW_DEF::PANE_ACTIVATE);
+
+	UnlockWindowUpdate();
+
+	return 0;
+
+}
+
+void CMainFrame::OpenStartupModules()
+{
+	
+}
+
+void CMainFrame::OpenLastUsedModules()
+{
+	LockWindowUpdate();
+
+	StartupAsWorkspace();
+
+	UnlockWindowUpdate();
+}
+BOOL CMainFrame::StartupAsWorkspace()
+{
+	CXmlConfig* pXml = CXmlConfig::Instance();
+	if(pXml==NULL)
+	{
+		return FALSE;
+	}
+
+
+	pXml->LockToRead();
+	xml_node<TCHAR>* pNodeTabbedView = pXml->FindChild(_T("Workspace\\TabbedView"));
+	if(pNodeTabbedView)
+	{
+		//ParseNode<Alignment>
+		xml_node<TCHAR>* pNodeAlignment = pNodeTabbedView->first_node(_T("Alignment"));
+		int iGroupAlign = 0;
+		BOOL bVert = TRUE;
+		BOOL bNewMDITabbedGroup=FALSE;
+		if(pNodeAlignment)
+		{
+			iGroupAlign = _ttoi((LPCTSTR)pNodeAlignment->value());
+			bVert = (iGroupAlign==1);
+		}
+
+
+		//ParseNode<Group>
+		xml_node<TCHAR>* pGroupNode = pNodeTabbedView->first_node();
+		while(pGroupNode)
+		{
+			CString strName = pGroupNode->name();
+			if(strName.Find(_T("Group"))>=0)
+			{
+				xml_node<TCHAR>* pTabNode = pGroupNode->first_node();
+				while(pTabNode)
+				{
+					CString strModule;
+					xml_attribute<TCHAR>* pAttr = pTabNode->first_attribute(_T("Name"));
+					if(pAttr) 
+					{
+						strModule = (LPCTSTR)pAttr->value();
+						pXml->UnLock();
+						OpenModuleByName(strModule);
+
+						if( bNewMDITabbedGroup && iGroupAlign>0 )
+						{
+							MDITabNewGroup(bVert);
+							bNewMDITabbedGroup = FALSE;
+						}
+						pXml->LockToRead();
+						if(m_pViewLastCreated)
+						{
+							m_pViewLastCreated->SendMessage(WM_SET_WKSDATA, eTabbedView, (LPARAM)pTabNode);
+						}
+					}
+
+					pTabNode = pTabNode->next_sibling();
+				}
+
+				bNewMDITabbedGroup = TRUE;
+			}
+
+			pGroupNode = pGroupNode->next_sibling();
+		}
+	}
+
+
+
+	//DockablePane
+	typedef xml_node<TCHAR> NodeT;
+	typedef NodeT* NodePtrT;
+	NodeT*  pNodePane = pXml->FindChild(_T("Workspace\\DockablePane"));
+	if(pNodePane)
+	{
+		NodeT* pNodeModule = pNodePane->first_node();
+		while(pNodeModule)
+		{
+			//Open Module first
+			CString strModule = (LPCTSTR)pNodeModule->name();
+			BOOL bRet = TRUE;
+			if(theApp.GetNumOfView(strModule)==0)
+			{
+				pXml->UnLock();
+				bRet = OpenModuleByName(strModule);
+				pXml->LockToRead();
+			}
+
+			if(!bRet)
+			{
+				CString strError;
+				strError.Format(_T("Failed to Open module %s"), strModule);
+				AfxMessageBox(strError);
+				break;
+			}
+
+
+			// Get InitPaneByWorkspace function from dll
+			LPFN_DLLINITPANEBYWORKSPACE pFunc = NULL;
+			for (POSITION pos  = m_AllCommands.GetHeadPosition(); pos !=NULL; )
+			{
+				CMenuCommand &mc = m_AllCommands.GetNext(pos);
+				if(!mc.m_bUtility && mc.m_strTitle.CompareNoCase(strModule)==0)
+				{
+					pFunc = (LPFN_DLLINITPANEBYWORKSPACE)GetProcAddress(mc.hLib, "InitPaneByWorkspace");
+					break;
+				}
+			}
+			if(!pFunc)
+			{
+				CString strError;
+				strError.Format(_T("Failed to find InitPaneByWorkspace function in %s.dll"), strModule);
+				break;
+			}
+
+
+			// call InitPaneByWorkspace function ......
+			NodeT* pNodeDashboards = pNodeModule->first_node();
+			if(pNodeDashboards)
+			{
+				CString strEr;
+				strEr.Format(_T("Calling %s InitPaneByWorkspace function..."), strModule);
+				bRet = FALSE;
+
+				try
+				{
+					pXml->UnLock();
+					bRet = pFunc(pNodeDashboards);
+					pXml->LockToRead();
+				}
+				catch (CException* e)
+				{
+					CString strError;
+					e->GetErrorMessage(strError.GetBuffer(256), 256);
+					strError.ReleaseBuffer();
+					strEr.Format(_T("Exception from InitPaneByWorkspace, error: %s"), strError.GetString());
+					AfxMessageBox(strEr);
+					break;
+				}
+				catch(...)
+				{
+					strEr.Format(_T("Unknown exception from InitPaneByWorkspace"));
+					AfxMessageBox(strEr);
+					break;
+				}
+			}
+			pNodeModule = pNodeModule->next_sibling();
+		}
+
+	}
+
+
+	CXmlConfig::Instance()->UnLock();
+
+
+	RecalcLayoutEx();
+
+	return TRUE;
+}
+
+void CMainFrame::RecalcLayoutEx()
+{
+	vector<CMFCTabCtrl*> vecTabCtrls;
+	const int nGroupNum = GetMDITabCtrls(vecTabCtrls);
+	if( nGroupNum > 1 )
+	{
+		const CMyMDIClientAreaWnd* pClientArea = (const CMyMDIClientAreaWnd*) &m_wndClientArea;    
+
+		CRect rc;
+		pClientArea->GetClientRect(&rc);
+		for(int i=0; i<nGroupNum; ++i)
+		{
+			CMFCTabCtrl* pTabCtrl = vecTabCtrls.at(i);
+			CRect rect;
+			pTabCtrl->GetClientRect(&rect);
+			if(pClientArea->IsVertAlign())
+			{
+				rect.right = rc.right/nGroupNum;
+			}
+			else
+			{
+				rect.bottom = rc.bottom/nGroupNum;
+			}
+
+			pTabCtrl->MoveWindow(&rect);
+		}
+	}
+
+	__super::RecalcLayout();
+}
+
+BOOL CMainFrame::OpenModuleByName(CString strModuleName, bool onStartup /*=true*/)
+{
+	for (POSITION pos  = m_AllCommands.GetHeadPosition(); pos !=NULL; )
+	{
+		CMenuCommand &mc = m_AllCommands.GetNext(pos);
+		if(mc.m_strTitle.CompareNoCase(strModuleName)==0)
+		{
+			UINT nID = mc.m_nMenuID + BASE_MODULES_MENU_ID;
+			return OpenModule(nID, onStartup);
+		}
+	}
+
+	return FALSE;
+}
+
+BOOL CMainFrame::OpenModule( UINT nID, bool onStartup /*=true*/ )
+{
+	for (POSITION pos  = m_AllCommands.GetHeadPosition(); pos !=NULL; )
+	{
+		CMenuCommand &mc = m_AllCommands.GetNext(pos);
+		if (!mc.m_bUtility && mc.m_nMenuID == nID-BASE_MODULES_MENU_ID )
+		{
+			if( !mc.hLib )
+			{
+				CString strPath = CFileHelper::GetModuleDir();
+				mc.hLib = LoadLibrary(strPath+_T("\\")+mc.m_strDll);
+			}
+
+			if( !mc.hLib )
+			{
+				CString strError;
+
+				strError.Format(_T("Load %s failed. ErrorCode:%u"), mc.m_strDll, GetLastError());
+				return FALSE;
+			}
+
+			if( !mc.m_bInitialized)
+			{
+				LPDLLFUNC *pInit = (LPDLLFUNC*)GetProcAddress(mc.hLib, "Init");
+				if(pInit)
+					pInit(0);
+				mc.m_bInitialized = true;
+			}
+
+			if( mc.m_bHasView && !mc.m_strTitle.IsEmpty())
+			{
+				BeginWaitCursor();
+				CIntaffCommonResourceHandle resHandle(mc.m_strDll, __FILEW__, __LINE__);
+				m_pViewLastCreated = theApp.OpenView(mc.m_strTitle, mc.m_bSingleView);
+				EndWaitCursor();
+				m_mapViewRegister[m_pViewLastCreated] = mc.m_strTitle;
+			}
+
+
+			LPDLLFUNC* pFunc = (LPDLLFUNC*)GetProcAddress(mc.hLib, "LoadModulePane");
+			if(pFunc)
+				pFunc(0);
+
+			if (!onStartup)	this->EnumTabbedView();
+
+			return TRUE;
+		}
+
+	}
+
+	return FALSE;
+}
+
+void CMainFrame::EnumTabbedView()
+{
+	CString strTemp;
+	CXmlConfig* pXml = CXmlConfig::Instance();
+	if(pXml==NULL)
+		return;
+
+	xml_document<TCHAR>* pDoc = pXml->GetDocument();
+
+	//MakeNode <Workspace\\TabbedView>
+	pXml->RemoveNode(_T("Workspace\\TabbedView"));
+	pXml->SetAttributeBool(_T("Workspace\\TabbedView"), false);
+	xml_node<TCHAR>* pWksNode = pXml->FindChild(_T("Workspace\\TabbedView"));
+
+
+	//MakeNode<Alignment>
+	const CMyMDIClientAreaWnd* pClientArea = (const CMyMDIClientAreaWnd*) &m_wndClientArea;
+	int iAlign = pClientArea->IsAlign()? (pClientArea->IsVertAlign()?1:2):0;
+	strTemp.Format(_T("%d"), iAlign);
+	TCHAR* pchName = pDoc->allocate_string(_T("Alignment"));
+	TCHAR* pchValue= pDoc->allocate_string(strTemp.GetString());
+	xml_node<TCHAR>* pNodeAlign = pWksNode->set_node(pchName, pchValue);
+
+
+	//MakeNode<TabbedGroup>
+	vector<CMFCTabCtrl*> vecTabCtrls;
+	const int nGroupNum = GetMDITabCtrls(vecTabCtrls);
+	for(int i=0; i<nGroupNum; ++i)
+	{
+		vector<CWorkspaceData>& vecWksData = m_workSpace.m_mapWks[i];
+		CMFCTabCtrl* pTabCtrl = vecTabCtrls[i];
+		const int nTabsNum = pTabCtrl->GetTabsNum();
+		for(int n=0; n<nTabsNum; ++n)
+		{
+			CWnd* pWnd = pTabCtrl->GetTabWnd(n);
+			if(!pWnd->GetSafeHwnd())
+				continue;
+
+			CFrameWnd* pFrame = dynamic_cast<CFrameWnd*>(pWnd);
+			if(!pFrame||!(pFrame->GetActiveView()))
+				continue;
+
+			CView* pView = pFrame->GetActiveView();
+			map<CView*, CString>::const_iterator it = m_mapViewRegister.find(pView);
+			if(it!=m_mapViewRegister.end())
+			{
+				CString strViewName = it->second;
+				const CMenuCommand* pMenuCmd = GetMenuCommand(strViewName);
+				if(pMenuCmd && !pMenuCmd->m_bLoadAtStartup)
+				{
+					continue;
+				}
+
+				CString strTab;
+				strTab.Format(_T("Workspace\\TabbedView\\Group%d\\Tab%d"), i, n);
+				pXml->SetAttributeBool(strTab.GetString(), false);
+
+				pXml->LockToWrite();
+				xml_node<TCHAR>* pTabNode = pXml->FindChild(strTab);
+				xml_attribute<TCHAR>* pAttr = pTabNode->document()->allocate_attribute(_T("Name"),strViewName.GetString());
+				pTabNode->append_attribute(pAttr);
+
+				try
+				{
+					pView->SendMessage(WM_GET_WKSDATA, 0, (LPARAM)pTabNode);
+				}
+				catch (...)
+				{
+					pXml->RemoveNode(strTab.GetString());
+				}
+
+				pXml->UnLock();
+			}
+		}
+	}
+
+	pXml->FlushData();
+}
+
+
+int CMainFrame::GetMDITabCtrls(vector<CMFCTabCtrl*>& vecTabCtrls)
+{
+	const CObList& obList = GetMDITabGroups();
+	POSITION pos = obList.GetHeadPosition();
+	while(pos)
+	{
+		const CObject* pOb = obList.GetNext(pos);
+		CMFCTabCtrl* pTab = DYNAMIC_DOWNCAST(CMFCTabCtrl, pOb);
+		if(pTab)
+		{
+			vecTabCtrls.push_back(pTab);
+		}
+	}
+
+	return vecTabCtrls.size();
+}
+
+const CMenuCommand* CMainFrame::GetMenuCommand( LPCTSTR lpszModuleName )
+{
+	for (POSITION pos  = m_AllCommands.GetHeadPosition(); pos !=NULL; )
+	{
+		const CMenuCommand &mc = m_AllCommands.GetNext(pos);
+		if(mc.m_strTitle.CompareNoCase(lpszModuleName)==0)
+			return &mc;
+	}
+
+	return NULL;
 }

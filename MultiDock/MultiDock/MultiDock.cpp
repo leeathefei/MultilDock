@@ -225,3 +225,77 @@ void CMultiDockApp::SaveCustomState()
 
 
 
+CView* CMultiDockApp::OpenView(const CString &strViewName, BOOL bSingle /*=FALSE*/)
+{
+	CDocument *pDoc = NULL;
+
+	for ( POSITION pos = GetFirstDocTemplatePosition(); pos != NULL; )
+	{
+		CDocTemplate *pTemp = GetNextDocTemplate(pos);
+
+		if ( strcmp(pTemp->GetRuntimeClass()->m_lpszClassName, "CCATDocTemplate") != 0 )
+			continue;
+
+		CCATDocTemplate *pTemplate = (CCATDocTemplate *)pTemp; 
+
+		if ( pTemplate->m_TemplateName.CompareNoCase(strViewName) == 0 )
+		{
+			if ( bSingle )
+			{
+				POSITION pos = pTemplate->GetFirstDocPosition();
+				if ( pos )
+				{
+					CDocument *pDoc = pTemplate->GetNextDoc(pos);
+					pos = pDoc->GetFirstViewPosition();
+					CView *pView = pDoc->GetNextView(pos);
+					pView->GetParentFrame()->ActivateFrame();
+					return pView;
+				}
+			}
+
+			pDoc = pTemplate->OpenDocumentFile(NULL, NULL, TRUE);
+			POSITION pos = pDoc->GetFirstViewPosition();
+			CView* pView = pDoc->GetNextView(pos);
+			CMDIChildWnd* pFrame = (CMDIChildWnd*)pView->GetParentFrame();
+
+			AfxGetMainWnd()->RedrawWindow();
+			return pView;
+		}
+	}
+
+	return NULL;
+}
+
+
+
+int CMultiDockApp::GetNumOfView( const CString& strViewName )
+{
+	int nNumOfView = 0;
+	CDocument *pDoc = NULL;
+
+	for ( POSITION pos = GetFirstDocTemplatePosition(); pos != NULL; )
+	{
+		CDocTemplate *pTemp = GetNextDocTemplate(pos);
+
+		if ( strcmp(pTemp->GetRuntimeClass()->m_lpszClassName, "CCATDocTemplate") != 0 )
+			continue;
+
+		CCATDocTemplate *pTemplate = (CCATDocTemplate *)pTemp; 
+
+		if ( pTemplate->m_TemplateName.CompareNoCase(strViewName) == 0 )
+		{
+			POSITION pos = pTemplate->GetFirstDocPosition();
+			if ( pos )
+			{
+				CDocument *pDoc = pTemplate->GetNextDoc(pos);
+				pos = pDoc->GetFirstViewPosition();
+				CView *pView = pDoc->GetNextView(pos);
+				nNumOfView++;
+			}
+
+			return nNumOfView;
+		}
+	}
+
+	return nNumOfView;
+}

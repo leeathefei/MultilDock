@@ -54,14 +54,5 @@ BOOL CDlgTest1::OnInitDialog()
 
 void CDlgTest1::OnBnClickedButton1()
 {
-	/*CMultiDockView* pView = (CMultiDockView*)(GetActiveView());
-	if (NULL != pView)
-	{
-		
-	}
-	else
-	{
-		AfxMessageBox(_T("LogViewer:\nActive view is not Logviewer, init Failed."));
-	}*/
-	// TODO: Add your control notification handler code here
+
 }
