@@ -3,10 +3,10 @@
 	<Workspace>
 		<DockablePane>false</DockablePane>
 		<TabbedView>
-			<Alignment>1</Alignment>
-			<Group1>
+			<Alignment>0</Alignment>
+			<Group0>
 				<Tab0 Name="SampleViewer">false</Tab0>
-			</Group1>
+			</Group0>
 		</TabbedView>
 	</Workspace>
 	<BaseDlgNodeCount>4</BaseDlgNodeCount>
