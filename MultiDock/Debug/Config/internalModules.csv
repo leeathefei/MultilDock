@@ -1,2 +1,0 @@
-DLLName,Title,IsAddToMenu,IsUtility,HasView,IsSingleView,IsLoadAtStartup
-SampleViewer.dll,SampleViewer,TRUE,FALSE,TRUE,FALSE,TRUE
